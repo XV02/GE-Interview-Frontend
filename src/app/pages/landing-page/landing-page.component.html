@@ -1,4 +1,11 @@
 <app-main-app-bar></app-main-app-bar>
 <div class="container">
-    It works
+    <div class="tenant-searcher">
+        <app-searcher 
+            placeholder="Search Tenant"
+            [searchItems]="tenantList"
+            [filterFunction]="filterFunction"
+            [resultFunction]="resultFunction"
+            (selectedItem)="selectedTenant($event)"></app-searcher>
+    </div>
 </div>
