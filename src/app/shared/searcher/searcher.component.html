@@ -1,1 +1,26 @@
-<p>searcher works!</p>
+<ng-template #rt let-r="result" let-t="term">
+	<ngb-highlight [result]="getResult(r)" [term]="t">
+
+    </ngb-highlight>
+</ng-template>
+
+<div class="input-group">
+    <input 
+        #searcher
+        type="text" 
+        class="form-control-lg form-control" 
+        [placeholder]="placeholder" 
+        aria-label="Customer" 
+        aria-describedby="button-addon2" 
+        [(ngModel)]="model"
+        (keyup.arrowDown)="scroll($event)"
+        (keyup.arrowUp)="scroll($event)"
+        (keyup)="unsetActive()"
+        [ngbTypeahead]="search"
+        [resultTemplate]="rt"
+        [inputFormatter]="formatter"
+        [editable]="false">
+    <button class="btn btn-outline-secondary btn-custom" type="button" id="button-addon2" (click)="searchClickedFn()">
+        <i class="bi bi-search"></i>
+    </button>
+</div>      
