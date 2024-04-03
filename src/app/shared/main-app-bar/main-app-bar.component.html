@@ -1,1 +1,15 @@
-<p>main-app-bar works!</p>
+<nav class="navbar navbar-expand navbar-light navbar-main-custom navbar-fixed-top">
+    <a class="navbar-brand">
+        GE Interview
+    </a>
+    <div class="ms-auto">
+        <div *ngIf="isLoggedIn; else LoginTenant">
+            <a class="nav-link" routerLink="/home">Add User</a>
+        </div>
+        <ng-template #LoginTenant>
+            <div class="d-flex text-end me-3">
+                <a class="nav-link" routerLink="/login">Login</a>
+            </div>
+        </ng-template>
+    </div>
+</nav>
