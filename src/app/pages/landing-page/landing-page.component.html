@@ -1,11 +1,44 @@
 <app-main-app-bar></app-main-app-bar>
 <div class="container">
-    <div class="tenant-searcher">
-        <app-searcher 
-            placeholder="Search Tenant"
-            [searchItems]="tenantList"
-            [filterFunction]="filterFunction"
-            [resultFunction]="resultFunction"
-            (selectedItem)="selectedTenant($event)"></app-searcher>
+    <div class="row tenant-searcher">
+        <div class="col-4 col-md6">
+            <app-searcher 
+                placeholder="Search Tenant"
+                [searchItems]="tenantList"
+                [filterFunction]="filterFunction"
+                [resultFunction]="resultFunction"
+                (selectedItem)="selectedTenant($event)"></app-searcher>
+        </div>
+        <div class="col-4 col-md-4">
+            <button class="btn btn-primary btn-lg" (click)="clearTenant()">Clear Tenant</button>
+        </div>
+        <div class="card mt-4">
+            <div *ngIf="actualTenant; else NoTenant">
+                <h5 class="card-title mt-3">{{ actualTenant.name }} Leaderboard</h5>
+                <table class="table table-hover table-responsive border">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">XP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let employee of leaderboard; let i = index">
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.email }}</td>
+                            <td>{{ employee.xp }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #NoTenant>
+                <div class="card-body">
+                    <h5 class="card-title
+                    ">No Tenant Selected</h5>
+                    <p class="card-text">Please select a tenant to view the details</p>
+                </div>
+            </ng-template>
+        </div>
     </div>
 </div>

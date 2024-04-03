@@ -4,6 +4,7 @@ import { SearcherComponent } from '../../shared/searcher/searcher.component';
 import { TenantsService } from '../../services/tenants.service';
 import { LeaderboardService } from '../../services/leaderboard.service';
 import { PrivateKeyInput } from 'crypto';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-landing-page',
@@ -11,13 +12,15 @@ import { PrivateKeyInput } from 'crypto';
   imports: [
     MainAppBarComponent,
     SearcherComponent,
+    NgIf,
+    NgFor,
   ],
   templateUrl: './landing-page.component.html',
   styleUrl: './landing-page.component.sass'
 })
 export class LandingPageComponent {
   public tenantList: any[] = [];
-  public selectedTenantId: string = '';
+  public actualTenant: any = null;
   public leaderboard: any[] = [];
 
   public filterFunction = (x: any) => `${x.name} ${x.email}`.toLowerCase();
@@ -43,6 +46,7 @@ export class LandingPageComponent {
   async selectedTenant(tenant: any): Promise<void> {
     try {
       this.leaderboard = await this.leaderboardsService.getLeaderboard(tenant.id);
+      this.actualTenant = tenant;
       console.log(this.leaderboard);
     } catch (e) {
       console.error('Error getting leaderboard', e);
@@ -55,5 +59,10 @@ export class LandingPageComponent {
     } else {
       this.isMobile = false;
     }
+  }
+
+  public clearTenant() {
+    this.actualTenant = null;
+    this.leaderboard = [];
   }
 }
